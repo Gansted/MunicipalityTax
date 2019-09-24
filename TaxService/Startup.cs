@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TaxService.Repositories;
+using TaxService.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace TaxService
 {
@@ -20,7 +22,9 @@ namespace TaxService
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllers();
-      services.AddTransient<IMunicipalityTaxRepository, MunicipalityTaxRepository>();
+      services.AddTransient<IMunicipalityTaxRepository, MunicipalityTaxRepositoryEF>();
+      services.AddDbContext<MunicipalityTaxContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("MunicipalityTaxContext")));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
