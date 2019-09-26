@@ -23,6 +23,7 @@ namespace TaxService
     {
       services.AddControllers();
       services.AddTransient<IMunicipalityTaxRepository, MunicipalityTaxRepositoryEF>();
+      services.AddSingleton<FileParser>();
       services.AddDbContext<MunicipalityTaxContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MunicipalityTaxContext")));
     }

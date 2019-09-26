@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TaxService.Repositories;
 using System;
-
+using System.IO;
 
 namespace TaxService.Controllers
 {
@@ -10,15 +10,21 @@ namespace TaxService.Controllers
   public class MunicipalityTaxController : Controller
   {
     private readonly IMunicipalityTaxRepository municipalityTaxRepository;
+    private readonly FileParser fileParser;
 
-    public MunicipalityTaxController(IMunicipalityTaxRepository municipalityTaxRepository)
+    public MunicipalityTaxController(IMunicipalityTaxRepository municipalityTaxRepository, FileParser fileParser)
     {
       this.municipalityTaxRepository = municipalityTaxRepository;
+      this.fileParser = fileParser;
     }
 
     [HttpPost]
     public ActionResult PostTaxFile(IFormFile file)
     {
+      using (var reader = new StreamReader(file.OpenReadStream()))
+      {
+        var municipalityTaxes = fileParser.ParseMunicipalityTaxCsv(reader);
+      }
       return null;
     }
 
