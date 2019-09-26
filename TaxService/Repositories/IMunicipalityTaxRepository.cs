@@ -5,7 +5,8 @@ namespace TaxService.Repositories
 {
   public interface IMunicipalityTaxRepository
   {
-    void CreateOrUpdateMunicipalityTax(MunicipalityTax municipalityTax);
+    void UpdateMunicipalityTax(MunicipalityTax municipalityTax);
+    void CreateMunicipalityTax(MunicipalityTax municipalityTax);
     MunicipalityTax GetMunicipalityTax(string Municipality, DateTime date);
   }
 }
