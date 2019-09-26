@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxService", "TaxService\TaxService.csproj", "{08C1DB1E-EB19-4B69-8A84-08C2CEF583C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxService", "TaxService\TaxService.csproj", "{08C1DB1E-EB19-4B69-8A84-08C2CEF583C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
