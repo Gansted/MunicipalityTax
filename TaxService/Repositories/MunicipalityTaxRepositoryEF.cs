@@ -58,7 +58,16 @@ namespace TaxService.Repositories
     public void UpdateMunicipalityTax(MunicipalityTax municipalityTax)
     {
         dbContext.MunicipalityTaxes.Update(municipalityTax);
+
+      try
+      {
         dbContext.SaveChanges();
+      }
+      catch (DbUpdateConcurrencyException e)
+      {
+        throw new MunicipalityTaxUpdateException("Could not update tax record in database. " +
+          "This is most likely due to no record existing in the database with the same municipality, period and start date", e);
+      }
     }
   }
 }

@@ -32,11 +32,7 @@ namespace TaxService.Controllers
           var municipalityTaxes = municipalityTaxParser.ParseMunicipalityTaxCsv(reader);
           municipalityTaxRepository.CreateMunicipalityTaxes(municipalityTaxes);
         }
-        catch(FormatException e)
-        {
-          return BadRequest(e.Message);
-        }
-        catch(MunicipalityTaxUpdateException e)
+        catch(Exception e) when (e is FormatException || e is MunicipalityTaxUpdateException)
         {
           return BadRequest(e.Message);
         }
@@ -52,7 +48,8 @@ namespace TaxService.Controllers
         return BadRequest("The posted model is invalid");
 
       municipalityTax.EndDate = endDateService.GetEndDate(municipalityTax.StartDate, municipalityTax.Period);
-        try
+        
+      try
         {
           municipalityTaxRepository.CreateMunicipalityTax(municipalityTax);
         }        
@@ -60,6 +57,28 @@ namespace TaxService.Controllers
         {
           return BadRequest(e.Message);
         }
+
+      return Ok();
+    }
+
+    [Route("UpdateTax")]
+    [HttpPut]
+    public ActionResult UpdateTax([FromBody]MunicipalityTax municipalityTax)
+    {
+      if (!ModelState.IsValid)
+        return BadRequest("The posted model is invalid");
+
+      municipalityTax.EndDate = endDateService.GetEndDate(municipalityTax.StartDate, municipalityTax.Period);
+      
+      try
+      {
+        municipalityTaxRepository.UpdateMunicipalityTax(municipalityTax);
+      }
+      catch (MunicipalityTaxUpdateException e)
+      {
+        return BadRequest(e.Message);
+      }
+
       return Ok();
     }
 
