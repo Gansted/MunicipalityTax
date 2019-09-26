@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using TaxService.Repositories;
 using TaxService.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using TaxService.Services;
 
 namespace TaxService
 {
@@ -23,9 +25,17 @@ namespace TaxService
     {
       services.AddControllers();
       services.AddTransient<IMunicipalityTaxRepository, MunicipalityTaxRepositoryEF>();
-      services.AddSingleton<FileParser>();
+      services.AddTransient<IEndDateService, EndDateService>();
+      services.AddSingleton<MunicipalityTaxParser>();
       services.AddDbContext<MunicipalityTaxContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MunicipalityTaxContext")));
+
+      services.AddMvc()
+        .AddJsonOptions(options =>
+        {
+          options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+          options.JsonSerializerOptions.IgnoreNullValues = true;
+        });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
