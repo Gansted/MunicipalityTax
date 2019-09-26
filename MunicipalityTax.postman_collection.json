@@ -1,0 +1,155 @@
+{
+	"info": {
+		"_postman_id": "9f5c3f70-349b-40ed-85fc-72e550c64ae0",
+		"name": "Municipality Tax",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add tax from file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Kristian/source/repos/MunicipalityTax/MunicipalityTaxesEample.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:2796/AddTaxFromFile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2796",
+					"path": [
+						"AddTaxFromFile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Tax",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Charset",
+						"value": "utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Municipality\": \"copenhagen\",\n    \"Period\": \"Week\",\n    \"StartDate\": \"2017-01-02\",\n    \"Tax\": 0.5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:2796/AddTax",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2796",
+					"path": [
+						"AddTax"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTax",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:2796/GetTax?municipality=vilnius&taxDate=2016.05.02",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2796",
+					"path": [
+						"GetTax"
+					],
+					"query": [
+						{
+							"key": "municipality",
+							"value": "vilnius"
+						},
+						{
+							"key": "taxDate",
+							"value": "2016.05.02"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Tax",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Municipality\": \"copenhagen\",\n    \"Period\": \"Week\",\n    \"StartDate\": \"2017-01-05\",\n    \"Tax\": 0.3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:2796/UpdateTax?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2796",
+					"path": [
+						"UpdateTax"
+					],
+					"query": [
+						{
+							"key": "municipality",
+							"value": "vilnius",
+							"disabled": true
+						},
+						{
+							"key": "taxDate",
+							"value": "2016.05.02",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
